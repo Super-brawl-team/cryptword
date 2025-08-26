@@ -8,7 +8,7 @@ Includes **CWS v2 format** with magic bytes, versioning, and password verificati
 - 🔑 Generate or provide your own encryption key
 - 📂 Encrypt/decrypt single files or entire folders
 - 🧩 Preserves file extensions
-- ⚡ Uses lightweight (RC4)[https://en.wikipedia.org/wiki/RC4] stream cipher
+- ⚡ Uses lightweight [RC4](https://en.wikipedia.org/wiki/RC4) stream cipher
 - 🛡️ Includes password verification to prevent wrong-key corruption
 
 ## 📖 Usage
