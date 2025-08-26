@@ -37,6 +37,8 @@ def decrypt():
     with open(file, "rb") as encrypted_file:
         file_data = encrypted_file.read()
     decrypted_data = crypto.decrypt(file_data)
+    if decrypted_data.startswith(b""):
+        print("[ERROR] This file has been encrypted with csw2, please use the appropriate version decryptor")
     if not decrypted_data.startswith(b"SUCCESS"):
         print("[ERROR] Incorrect decryption password!")
         return
