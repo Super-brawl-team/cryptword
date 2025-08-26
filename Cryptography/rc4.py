@@ -3,7 +3,6 @@ from Cryptography.RC4Encrypter import RC4Encrypter as RC4
 
 class CryptoRc4:
     def __init__(self, key):
-        print(key)
         self.key = key.encode('utf-8')
         self.nonce = b'nonce'
         self.RC4_Stream = RC4(self.key + self.nonce)
