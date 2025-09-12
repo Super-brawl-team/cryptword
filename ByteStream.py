@@ -2,7 +2,7 @@ import zlib
 
 from ChecksumEncoder import ChecksumEncoder
 from LogicStringUtil import LogicStringUtil
-
+from Debugger import Debugger
 
 class ByteStream(ChecksumEncoder):
     def __init__(self, messageBuffer):
@@ -160,13 +160,13 @@ class ByteStream(ChecksumEncoder):
         self.bitoffset = 0
         if (length & 0x80000000) != 0:
             if length != -1:
-                print("Negative readBytes length encountered.")
+                Debugger.error("Negative readBytes length encountered.")
         elif length <= max:
             result = self.messagePayload[self.offset:self.offset + length]
             self.offset += length
             return bytes(result)
         else:
-            print("readBytes too long array, max", max)
+            Debugger.error("readBytes too long array, max", max)
         return b''
 
     def readBytesLength(self):
@@ -235,10 +235,10 @@ class ByteStream(ChecksumEncoder):
         self.offset += 4
         if length <= -1:
             if length != -1:
-                print("Negative String length encountered.")
+                Debugger.error("Negative String length encountered.")
             return b''
         elif length > max:
-            print(f"Too long String encountered, length {length}, max {max}")
+            Debugger.error(f"Too long String encountered, length {length}, max {max}")
             return b''
         result = bytes(self.messagePayload[self.offset:self.offset + length]).decode('utf-8')
         self.offset += length
@@ -253,10 +253,10 @@ class ByteStream(ChecksumEncoder):
         self.offset += 4
         if length <= -1:
             if length != -1:
-                print("Negative String length encountered.")
+                Debugger.error("Negative String length encountered.")
             return b''
         elif length > max:
-            print(f"Too long String encountered, length {length}, max {max}")
+            Debugger.error(f"Too long String encountered, length {length}, max {max}")
             return b''
         result = self.messagePayload[self.offset].decode('utf-8')
         self.offset += length
@@ -452,7 +452,7 @@ class ByteStream(ChecksumEncoder):
                 self.messagePayload += str_bytes
                 self.offset += str_length
             else:
-                print(f"ByteStream::writeString invalid string length {str_length}")
+                Debugger.error(f"ByteStream::writeString invalid string length {str_length}")
                 ByteStream.writeIntToByteArray(self, -1)
         else:
             ByteStream.writeIntToByteArray(self, -1)
@@ -467,7 +467,7 @@ class ByteStream(ChecksumEncoder):
             self.messagePayload += str_bytes
             self.offset += str_length
         else:
-            print(f"ByteStream::writeString invalid string length {str_length}")
+            Debugger.error(f"ByteStream::writeString invalid string length {str_length}")
             ByteStream.writeIntToByteArray(self, -1)
 
     def writeVInt(self, data):

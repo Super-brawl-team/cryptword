@@ -1,5 +1,5 @@
 from CPPDefs import CPPDefs
-
+from Debugger import Debugger
 
 class ChecksumEncoder:
     def __init__(self):
@@ -45,7 +45,7 @@ class ChecksumEncoder:
 
     @staticmethod
     def hashCode():
-        print("ChecksumEncoder hashCode not designed")
+        Debugger.warning("ChecksumEncoder hashCode not designed")
         return 42
 
     @staticmethod
@@ -77,17 +77,17 @@ class ChecksumEncoder:
 
     def writeInt8(self, value):
         if value + 0x80 >= 0x100:
-            print("[ERROR]")
+            Debugger.error("")
         self.checksum = CPPDefs.__ROR4__(self.checksum, 31) + value + 11
 
     def writeInt16(self, value):
         if value + 0x8000 >= 0x10000:
-            print("[ERROR]")
+            Debugger.error("")
         self.checksum = CPPDefs.__ROR4__(self.checksum, 31) + value + 19
 
     def writeInt24(self, value):
         if value + 0x800000 >= 0x1000000:
-            print("[ERROR]")
+            Debugger.error("")
         self.checksum = (value & 0xFFFFFF) + CPPDefs.__ROR4__(self.checksum, 31) + value + 21
 
     def writeInt(self, value):
